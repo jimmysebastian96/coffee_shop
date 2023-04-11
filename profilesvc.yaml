@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profilesvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profilesvc
+  template:
+    metadata:
+      labels:
+        app: profilesvc
+    spec:
+      containers:
+      - name: profilesvc
+        image: jimmysebastian96/profilesvc_image
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_NAME
+            value: "MySQL"
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASSWORD
+            value: "Password@1"
+          - name: DB_HOST
+            value: "host.docker.internal"
+          - name: DB_PORT
+            value: "3306"
+          - name: PROMETHEUS_PORT
+            value: "9090"
+          - name: PROMETHEUS_METRICS_PATH
+            value: "/metrics"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: profilesvc-service
+  labels:
+    app: profilesvc
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/metrics"
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: profilesvc
+  type: LoadBalancer
+

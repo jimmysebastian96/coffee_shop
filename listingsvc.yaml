@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listingsvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: listingsvc
+  template:
+    metadata:
+      labels:
+        app: listingsvc
+    spec:
+      containers:
+      - name: listingsvc
+        image: jimmysebastian96/listingsvc_image
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DB_NAME
+            value: "MySQL"
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASSWORD
+            value: "Password@1"
+          - name: DB_HOST
+            value: "host.docker.internal"
+          - name: DB_PORT
+            value: "3306"
+          - name: PROMETHEUS_PORT
+            value: "9090"
+          - name: PROMETHEUS_METRICS_PATH
+            value: "/metrics"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: listingsvc-service
+  labels:
+    app: listingsvc
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8000"
+    prometheus.io/path: "/metrics"
+spec:
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  selector:
+    app: listingsvc
+  type: LoadBalancer
+

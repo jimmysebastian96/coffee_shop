@@ -12,25 +12,26 @@ Checkoutsvc: REST API for processing customer purchases
 The user interface communicates with the backend services through REST APIs.
 
 ## Installation and Setup
-To run the Coffee Shop application, you will need to have the following dependencies installed:
+### To run the Coffee Shop application, you will need to have the following dependencies installed:
+- Docker
+- Kubernetes
+- KEDA
+- Prometheus
+### To set up the application, follow these steps:
 
-Docker
-Kubernetes
-KEDA
-Prometheus
-To set up the application, follow these steps:
+- Clone the repository to your local machine
+- In the root directory, run kubectl apply to deploy the Kubernetes resources
+- Access the application by navigating to http://localhost in your web browser
 
-Clone the repository to your local machine
-In the root directory, run kubectl apply  to deploy the Kubernetes resources
-Access the application by navigating to http://localhost in your web browser
-Usage
+### Usage
 To use the Coffee Shop application, follow these steps:
 
-Register as a new customer on the home page
-Go to your dashboard using your customer ID
-Purchase items from the product list to earn loyalty rewards
-View your loyalty points and transaction history on your dashboard
-Metrics and Monitoring
+- Register as a new customer on the home page
+- Go to your dashboard using your customer ID
+- Purchase items from the product list to earn loyalty rewards
+- View your loyalty points and transaction history on your dashboard
+
+## Metrics and Monitoring
 Prometheus is used for monitoring the application's metrics, which can be accessed by navigating to http://localhost:9090 in your web browser.
 
 ## Autoscaling

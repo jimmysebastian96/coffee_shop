@@ -35,7 +35,7 @@ To use the Coffee Shop application, follow these steps:
 Prometheus is used for monitoring the application's metrics, which can be accessed by navigating to http://localhost:9090 in your web browser.
 
 ## Autoscaling
-KEDA is used for autoscaling the application's backend services based on incoming request load. The autoscaling configuration can be found in the kubernetes/keda/ directory.
+KEDA is used for autoscaling the application's backend services based on incoming request load. The autoscaling configuration can be found in this repo.
 
 ## Testing
-The Coffee Shop application has been tested for performance, scalability, and reliability. For more information on the testing results, see the TESTING.md file.
+The Coffee Shop application has been tested for performance, scalability, and reliability. The Jmeter file used for load testing will be availble in this repo.

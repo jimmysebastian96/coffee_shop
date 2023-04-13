@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: profilesvc-scaledobject
+  labels:
+    deploymentName: profilesvc
+spec:
+  scaleTargetRef:
+    name: profilesvc
+  pollingInterval: 15  # Optional. Default: 30 seconds
+  cooldownPeriod:  30 # Optional. Default: 300 seconds
+  minReplicaCount: 1   # Optional. Default: 0
+  maxReplicaCount: 10 # Optional. Default: 100
+  triggers:
+  - type: prometheus
+    metadata:
+      # Required
+      serverAddress: http://prometheus-service.default.svc.cluster.local:9090
+      metricName: access_frequency
+      threshold: '2'
+      query: rate(django_http_responses_total_by_status_total{status="200",job="profilesvc"}[1m])

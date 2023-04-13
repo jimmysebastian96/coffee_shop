@@ -11,7 +11,7 @@ Loyaltysvc: REST API for managing loyalty rewards
 Checkoutsvc: REST API for processing customer purchases
 The user interface communicates with the backend services through REST APIs.
 
-##Installation and Setup
+## Installation and Setup
 To run the Coffee Shop application, you will need to have the following dependencies installed:
 
 Docker
